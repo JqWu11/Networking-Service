@@ -1,0 +1,142 @@
+﻿EECS 497 – Project Planning Document
+
+
+Team Members: Aryan Kumar (arykumar), Justin Wu (jqwu), Garv Virginkar (gvirgink)
+1. Project Briefing
+Goals and Impact of a Successful Project
+This project develops a web-based networking outreach assistant that helps job seekers organize, personalize, and track professional outreach to employees and recruiters. The system converts an unstructured and stressful networking process into a clear workflow: collect contacts, personalize messages, schedule outreach, and track conversations.
+User Context
+Many job seekers, especially first-generation college students, career changers, and international students, do not have established professional networks or familiarity with U.S. networking norms. As a result, networking can feel confusing, time-consuming, and intimidating.
+Success Metrics
+* Reduction in time required to send personalized outreach
+* Number of contacts successfully tracked
+* User-reported confidence in networking
+* Rate of message personalization compared to copy-paste messages
+Strategic Benefits
+* Easier to use than spreadsheets or scattered email drafts
+* Faster outreach through templates and personalization tools
+* More organized than manual tracking methods
+* More approachable for users with limited networking experience
+Successful Delivery
+Users can manage contacts, generate personalized emails, schedule messages, and track responses within a single dashboard.
+
+
+
+
+
+
+
+
+Background Information
+
+
+Existing Solutions
+
+
+* LinkedIn messaging supports outreach but lacks structured workflow and tracking.
+* Email clients such as Gmail or Outlook allow messaging but are not designed for networking organizations.
+* CRMs such as HubSpot or Salesforce are powerful but overly complex for individual job seekers.
+* Tools like Notion or spreadsheets are used for tracking but lack automation and guided personalization.
+
+
+How Our Project Differs
+This system combines contact organization, guided personalization, and outreach tracking in a tool specifically designed for job seekers rather than sales teams.
+Technology and Expertise
+
+
+* Web development using React, JavaScript, and databases
+* Email API integration such as SendGrid or Gmail API
+* User-centered UI/UX design principles for novice users
+Challenges
+
+
+* Extracting useful profile information from LinkedIn profile URLs
+* Managing email scheduling and API limitations
+* Designing templates that feel helpful without sounding robotic
+Team Members, Skills, and Organization
+
+
+Member
+	Major/Focus
+	Strengths
+	Responsibilities
+	Justin Wu
+	Computer Science
+	Full-stack development, system design
+	Backend and integration
+	Aryan Kumar
+	Computer Engineering
+	Frontend development, UI Design
+	Dashboard and user experience
+	Garv Virginkar
+	Computer Engineering
+	Backend development, organization
+	Backend and data modelling 
+	Organizational Structure
+The team uses a feature-based structure with frontend, backend, and integration responsibilities. This allows parallel work and clear ownership.
+Skills to Learn
+
+
+* Email API integration
+* UI design for underrepresented user groups
+* Project management tools and planning techniques
+Project Management Strategy
+Tool
+	Purpose
+	Reason
+	Github
+	Code Sharing and Issue Tracking
+	Used for version control and issue tracking + assignment
+	Slack
+	Communication
+	Can organize relevant communications by channel
+	Google Docs
+	Planning and Documentation
+	Easily accessible and allows collaboration
+	Google Sheets
+	Timeline Management
+	Used to create a Gantt chart 
+	
+
+Scope and timeline will be reviewed weekly. Tasks are assigned to individual team members for accountability. Early project phases include team self-education on required technologies and tools.
+
+
+2. Initial Project Management Plan and Milestones
+Project Phases
+
+
+1. Startup and Team Education
+2. User Requirements and Context Design
+3. Solution Development
+4. System Integration
+5. Testing and Evaluation
+6. Redesign and Improvements
+7. Final Reporting
+
+
+  
+
+
+
+3. Literature and Technology Review
+Design Concepts
+Structured workflows reduce cognitive load for novice users. Templates improve efficiency but must allow personalization. Dashboard-style interfaces support task tracking and visibility.
+Relevant Technology
+
+
+* Email APIs such as Gmail API or SendGrid
+* Web frameworks such as React
+* Databases for tracking contact states and message status
+Competitor Comparison
+CRMs are too complex for job seekers, while LinkedIn lacks structured tracking. This system focuses on simple, guided networking support.
+Key Insight
+The design should reduce anxiety and decision fatigue for users unfamiliar with professional outreach norms.
+
+
+References
+
+
+* Nielsen Norman Group, usability principles
+* Research on workflow tools and cognitive load
+* Email API documentation
+* Studies on professional networking practices

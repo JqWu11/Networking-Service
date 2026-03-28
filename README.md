@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# OutreachPilot
 
-## Getting Started
+This is a Next.js app for generating networking outreach templates.
 
-First, run the development server:
+## Run locally
+
+1. Install dependencies:
+
+```bash
+npm install
+```
+
+2. Copy the environment template:
+
+```bash
+cp .env.example .env.local
+```
+
+3. Start development:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Sharing this project safely
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Do **not** share your real `.env` file or API keys. Share only code plus `.env.example`.
 
-## Learn More
+- Without `OPENAI_API_KEY`, the template API automatically runs in local demo mode and returns usable sample templates.
+- Without Clerk keys, auth/pricing UI is disabled and the app still runs in demo mode.
+- Add real keys in `.env.local` only when you want full API + billing behavior.
 
-To learn more about Next.js, take a look at the following resources:
+## Environment variables
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+See `.env.example`:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `OPENAI_API_KEY` (optional): enables live OpenAI template generation.
+- `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` (optional): enables Clerk auth widgets.
+- `CLERK_SECRET_KEY` (optional): enables Clerk server-side features.
