@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/accordion";
 
 const clerkEnabled = Boolean(process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY);
+const billingEnabled = process.env.NEXT_PUBLIC_CLERK_BILLING_ENABLED === "true";
 
 export default function Home() {
   return (
@@ -83,12 +84,12 @@ export default function Home() {
           </p>
         </div>
         <div className="rounded-xl border border-indigo-100 bg-gradient-to-b from-indigo-50/50 to-white p-4 md:p-6">
-          {clerkEnabled ? (
+          {clerkEnabled && billingEnabled ? (
             <PricingTable />
           ) : (
             <p className="text-sm text-slate-600">
-              Pricing checkout is disabled in local demo mode. Add Clerk keys in
-              your environment to enable billing flows.
+              Pricing checkout is disabled in local demo mode. Add Clerk keys and set
+              NEXT_PUBLIC_CLERK_BILLING_ENABLED=true after enabling Clerk billing.
             </p>
           )}
         </div>

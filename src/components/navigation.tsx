@@ -20,6 +20,9 @@ export function Navigation() {
           <Link href="/workflow" className="hover:text-indigo-600">
             Workflow
           </Link>
+          <Link href="/start-networking/followups" className="hover:text-indigo-600">
+            Follow-ups
+          </Link>
           <Link href="/pricing" className="hover:text-indigo-600">
             Pricing
           </Link>

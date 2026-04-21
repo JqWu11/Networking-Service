@@ -1,6 +1,7 @@
 import { PricingTable } from "@clerk/nextjs";
 
 const clerkEnabled = Boolean(process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY);
+const billingEnabled = process.env.NEXT_PUBLIC_CLERK_BILLING_ENABLED === "true";
 
 export default function PricingPage() {
   return (
@@ -19,12 +20,12 @@ export default function PricingPage() {
       <p style={{ marginBottom: "1.25rem", color: "#475569" }}>
         Choose the plan that matches your outreach volume and follow-up workflow.
       </p>
-      {clerkEnabled ? (
+      {clerkEnabled && billingEnabled ? (
         <PricingTable />
       ) : (
         <p style={{ color: "#475569" }}>
-          Billing is unavailable in local demo mode. Add Clerk keys to enable
-          checkout.
+          Billing is unavailable in local demo mode. Add Clerk keys and set
+          NEXT_PUBLIC_CLERK_BILLING_ENABLED=true after enabling billing in Clerk.
         </p>
       )}
     </div>
