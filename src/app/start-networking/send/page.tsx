@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useSyncExternalStore } from "react";
 import { useUser } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 
@@ -19,11 +19,22 @@ type TemplateVariant = {
   message: string;
 };
 
+let cachedTemplateRaw: string | null = null;
+let cachedTemplateValue: TemplateVariant | null = null;
+
 function readSelectedTemplate(): TemplateVariant | null {
   if (typeof window === "undefined") return null;
 
   const raw = sessionStorage.getItem("selected-outreach-template");
-  if (!raw) return null;
+  if (raw === cachedTemplateRaw) {
+    return cachedTemplateValue;
+  }
+
+  if (!raw) {
+    cachedTemplateRaw = null;
+    cachedTemplateValue = null;
+    return null;
+  }
 
   try {
     const parsed = JSON.parse(raw) as TemplateVariant;
@@ -32,12 +43,34 @@ function readSelectedTemplate(): TemplateVariant | null {
       typeof parsed.title === "string" &&
       typeof parsed.message === "string"
     ) {
-      return parsed;
+      cachedTemplateRaw = raw;
+      cachedTemplateValue = parsed;
+      return cachedTemplateValue;
     }
+    cachedTemplateRaw = raw;
+    cachedTemplateValue = null;
     return null;
   } catch {
+    cachedTemplateRaw = raw;
+    cachedTemplateValue = null;
     return null;
   }
+}
+
+function subscribeSelectedTemplate(onStoreChange: () => void): () => void {
+  if (typeof window === "undefined") return () => {};
+
+  const handler = (event: StorageEvent) => {
+    if (event.key && event.key !== "selected-outreach-template") return;
+    onStoreChange();
+  };
+
+  window.addEventListener("storage", handler);
+  return () => window.removeEventListener("storage", handler);
+}
+
+function getServerSelectedTemplate(): TemplateVariant | null {
+  return null;
 }
 
 type SendStatus = "idle" | "sending" | "sent" | "error";
@@ -49,11 +82,18 @@ export default function SendEmailPage() {
   const senderName =
     [user?.firstName, user?.lastName].filter(Boolean).join(" ") || user?.username || null;
 
-  const [selectedTemplate] = useState<TemplateVariant | null>(() => readSelectedTemplate());
+  const selectedTemplate = useSyncExternalStore(
+    subscribeSelectedTemplate,
+    readSelectedTemplate,
+    getServerSelectedTemplate,
+  );
 
-  const [to, setTo] = useState("");
-  const [subject, setSubject] = useState(selectedTemplate?.title ?? "");
-  const [body, setBody] = useState(selectedTemplate?.message ?? "");
+  const [to, setTo] = useState<string>("");
+  const [subjectDraft, setSubjectDraft] = useState<string | null>(null);
+  const [bodyDraft, setBodyDraft] = useState<string | null>(null);
+
+  const subject = subjectDraft ?? selectedTemplate?.title ?? "";
+  const body = bodyDraft ?? selectedTemplate?.message ?? "";
 
   const [status, setStatus] = useState<SendStatus>("idle");
   const [feedback, setFeedback] = useState<string | null>(null);
@@ -178,7 +218,7 @@ export default function SendEmailPage() {
               placeholder="Subject line"
               className="w-full rounded-md border border-indigo-200 px-3 py-2 text-slate-900 outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-200"
               value={subject}
-              onChange={(event) => setSubject(event.target.value)}
+              onChange={(event) => setSubjectDraft(event.target.value)}
             />
           </div>
 
@@ -196,7 +236,7 @@ export default function SendEmailPage() {
               required
               className="w-full rounded-md border border-indigo-200 px-3 py-2 text-slate-900 outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-200"
               value={body}
-              onChange={(event) => setBody(event.target.value)}
+              onChange={(event) => setBodyDraft(event.target.value)}
             />
           </div>
 
