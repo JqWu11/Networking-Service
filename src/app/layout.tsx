@@ -1,5 +1,11 @@
 import type { Metadata } from "next";
-import { ClerkProvider } from "@clerk/nextjs";
+import {
+  ClerkProvider,
+  Show,
+  SignInButton,
+  SignUpButton,
+  UserButton,
+} from "@clerk/nextjs";
 import { Geist, Geist_Mono } from "next/font/google";
 import Link from "next/link";
 import { Navigation } from "@/components/navigation";
@@ -20,8 +26,6 @@ export const metadata: Metadata = {
   description:
     "A networking outreach assistant for job seekers to personalize messages, schedule outreach, and track follow-ups.",
 };
-
-const clerkEnabled = Boolean(process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY);
 
 export default function RootLayout({
   children,
@@ -66,7 +70,18 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {clerkEnabled ? <ClerkProvider>{appShell}</ClerkProvider> : appShell}
+        <ClerkProvider>
+          <header className="flex h-16 items-center justify-end gap-4 px-6">
+            <Show when="signed-out">
+              <SignInButton />
+              <SignUpButton />
+            </Show>
+            <Show when="signed-in">
+              <UserButton />
+            </Show>
+          </header>
+          {appShell}
+        </ClerkProvider>
       </body>
     </html>
   );
